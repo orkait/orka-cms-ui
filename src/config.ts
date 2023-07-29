@@ -1,0 +1,1 @@
+export const MAX_BUCKET_SIZE_IN_BYTES = 50 * 1024 * 1024;
