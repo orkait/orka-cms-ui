@@ -17,6 +17,9 @@ export type singleFileMetaType = {
     lastModified: string,
     downloadLink: string,
     filename?: string,
+    fileNameWithoutExtension?: string,
+    fileExtension?: string,
+    bindedPath?: string,
 }
 
 
@@ -43,6 +46,16 @@ export type FileType = {
     FilesCount: number,
     FoldersCount: number,
 }
+
+export type SingleProductType = {
+    productTitle: string,
+    productLink: string,
+    productDescription: string,
+    productBrandName: string,
+    productHighlights: string[],
+    productAttributes: string[]
+}
+
 
 export type FileListType = FileType[];
 

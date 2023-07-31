@@ -4,20 +4,15 @@ import Link from "next/link"
 
 const navbarData = [
     {
-        header: "Home",
-        icon: faHome,
-        link: "/"
-    },
-    {
         header: "Media",
         icon: faImage,
         link: "/media"
     },
     {
-        header: "Products",
-        icon: faPager,
-        link: "/products"
-    }
+        header: "Templates",
+        icon: faHome,
+        link: "/templates"
+    },
 ]
 
 const SideBar = () => {

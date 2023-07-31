@@ -1,8 +1,10 @@
 import axios from "axios";
 import env from "@/env";
 
-const api = axios.create({
-    baseURL: env.API
+export const fileAPI = axios.create({
+    baseURL: env.FILE_SERVICE_API
 });
 
-export default api;
+export const api = axios.create({
+    baseURL: env.API
+})
