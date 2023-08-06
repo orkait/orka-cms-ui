@@ -1,6 +1,6 @@
 // use-fetch-data.js
 import { useEffect, useState } from 'react';
-import api from '../service/api';
+import { api } from '../service/api';
 
 function useAxios<T>(path: string) {
     const [data, setData] = useState({});

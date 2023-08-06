@@ -1,15 +1,8 @@
+import Input from '@/base/Input';
+import TextArea from '@/base/TextArea';
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react'
-
-const RenderToolbar = () => {
-    return (
-        <div className='flex justify-between items-center'>
-
-        </div>
-    )
-}
-
 
 const tools = [
     'textbox',
@@ -19,11 +12,25 @@ const tools = [
     'range'
 ]
 
+
+
 const TemplatePage = () => {
     const [templates, setTemplates] = React.useState<any>([]);
 
     return (
         <div className='flex justify-between '>
+            <Input
+                placeholder='hello'
+                onChange={(value) => {
+                    console.log(value);
+                }}
+                onBlur={() => {
+                    console.log('blur')
+                }}
+                onFocus={() => {
+                    console.log('focus')
+                }}
+            />
             <div className='flex gap-2'>
                 {
                     tools.map((item, index) => {

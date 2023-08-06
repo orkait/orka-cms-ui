@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faImage, faPager } from '@fortawesome/free-solid-svg-icons'
+import { faHome, faImage, faMoon, faPager, faSun } from '@fortawesome/free-solid-svg-icons'
 import Link from "next/link"
+import { useTheme, ThemeProvider } from "next-themes"
 
 const navbarData = [
     {
@@ -8,11 +9,11 @@ const navbarData = [
         icon: faImage,
         link: "/media"
     },
-    {
-        header: "Templates",
-        icon: faHome,
-        link: "/templates"
-    },
+    // {
+    //     header: "Templates",
+    //     icon: faPager,
+    //     link: "/templates"
+    // }
 ]
 
 const SideBar = () => {
@@ -42,6 +43,9 @@ const SideBar = () => {
 }
 
 const NavBar = () => {
+
+    const { theme, setTheme } = useTheme();
+
     return (
         <div className="navbar bg-base-100">
             <div className="flex-1">
@@ -49,7 +53,7 @@ const NavBar = () => {
                     Orkait CMS
                 </a>
             </div>
-            <div className="flex-none">
+            {/* <div className="flex-none">
                 <div className="dropdown dropdown-end">
                     <label tabIndex={0} className="btn btn-ghost btn-circle">
                         <div className="indicator">
@@ -70,7 +74,7 @@ const NavBar = () => {
                 <div className="dropdown dropdown-end">
                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full">
-                            <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                            
                         </div>
                     </label>
                     <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
@@ -83,27 +87,42 @@ const NavBar = () => {
                         <li><a>Settings</a></li>
                         <li><a>Logout</a></li>
                     </ul>
+                </div> 
+            </div>*/}
+
+            <div className="navbar-end">
+                <div className="btn btn-circle "
+                    onClick={() => {
+                        theme === 'dark' ? setTheme('light') : setTheme('dark')
+                    }}
+                >
+                    <FontAwesomeIcon
+                        icon={theme === 'dark' ? faSun : faMoon}
+                    />
                 </div>
             </div>
+
         </div>
+
+
     )
 }
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
     return (
-        <>
-            <div className='sticky'>
+        <ThemeProvider>
+            <div className='shadow mb-1'>
                 <NavBar />
             </div>
-            <div className="flex child:p-2 h-full ">
-                <div className='test2 w-1/4 max-w-[200px] flex flex-col'>
+            <div className="flex child:p-2 h-full child:m-2 shadow-md ">
+                {children}
+                {/* <div className='w-1/4 max-w-[200px] flex flex-col'>
                     <SideBar />
                 </div>
-                <div className="test2 w-3/4 flex-1">
-                    {children}
-                </div>
+                <div className="w-3/4 flex-1">
+                </div> */}
             </div>
-        </>
+        </ThemeProvider>
     )
 }
 

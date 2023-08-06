@@ -52,8 +52,8 @@ export type SingleProductType = {
     productLink: string,
     productDescription: string,
     productBrandName: string,
-    productHighlights: string[],
-    productAttributes: string[]
+    productHighlights: string,
+    productAttributes: string
 }
 
 
@@ -62,3 +62,9 @@ export type FileListType = FileType[];
 
 
 
+export interface IModalRef extends HTMLDivElement {
+    current: {
+        showModal: () => void,
+        close: () => void
+    }
+}
