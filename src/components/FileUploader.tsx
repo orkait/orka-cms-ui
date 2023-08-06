@@ -45,7 +45,7 @@ const FileUploader = () => {
 
             // close file uploader modal
             if (fileUploaderModalRef) {
-                fileUploaderModalRef.current.close();
+                (fileUploaderModalRef.current as any).close();
             }
 
             setCounter(counter + 1);

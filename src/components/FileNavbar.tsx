@@ -55,7 +55,7 @@ const FileNavbar = () => {
                         <div className="btn btn-secondary btn-sm "
                             onClick={() => {
                                 if (fileUploaderModalRef && fileUploaderModalRef.current) {
-                                    fileUploaderModalRef.current?.showModal();
+                                    (fileUploaderModalRef.current as any)?.showModal();
                                 }
                             }}
                         >

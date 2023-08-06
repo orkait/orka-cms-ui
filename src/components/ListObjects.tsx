@@ -166,9 +166,10 @@ const ListObjects = () => {
                                         <div
                                             onClick={() => {
                                                 setSelectedFile(file);
-
-                                                fileViewerModalRef.current.file = file;
-                                                fileViewerModalRef.current?.showModal();
+                                                if (fileViewerModalRef && fileViewerModalRef.current) {
+                                                    (fileViewerModalRef.current as any).file = file;
+                                                    (fileViewerModalRef.current as any).showModal();
+                                                }
                                             }}
                                             className="card hover:opacity-30 cursor-pointer  items-center justify-center  "
                                             key={index}
@@ -238,7 +239,7 @@ const ListObjects = () => {
                                 if (result.isConfirmed) {
 
                                     if (fileViewerModalRef && fileViewerModalRef.current) {
-                                        const file = fileViewerModalRef.current.file;
+                                        const file = (fileViewerModalRef.current as any).file;
 
                                         fileAPI.delete(`/delete?path=${file.name}`)
                                             .then((response) => {
@@ -285,7 +286,7 @@ const ListObjects = () => {
 
             <dialog
                 className="modal  "
-                ref={fileUploaderModalRef}
+                ref={fileUploaderModalRef as any}
             >
                 <form method="dialog" className="flex flex-col modal-box dark:border-2 dark:border-white items-center justify-center ">
                     <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
