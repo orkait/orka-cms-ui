@@ -9,7 +9,7 @@ const FileViewer = () => {
     return (
         <figure className="relative ">
             <img
-                src={fileViewerModalRef ? (fileViewerModalRef?.current?.file as any)?.downloadLink : "https://placehold.co/300x200"}
+                src={fileViewerModalRef ? ((fileViewerModalRef?.current as any)?.file as any)?.downloadLink : "https://placehold.co/300x200"}
                 alt="Shoes"
                 className="w-[300px] h-[200px] object-scale-down "
                 style={{
