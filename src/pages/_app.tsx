@@ -17,7 +17,7 @@ export default function App({ Component, pageProps }: AppProps) {
     const [selectedFile, setSelectedFile] = useState<singleFileMetaType>(defaultSingleMeta);
     const [showInfoDropdown, setShowInfoDropdown] = useState<boolean>(false);
     const fileUploaderModalRef = useRef<File | null>(null);
-    const fileViewerModalRef = useRef<singleFileMetaType>(defaultSingleMeta);
+    const fileViewerModalRef = useRef<any>(defaultSingleMeta);
 
     return (
         <MediaContext.Provider
