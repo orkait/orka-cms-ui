@@ -2,8 +2,9 @@ import { MediaContext } from "@/context/MediaContext";
 import { api } from "@/service/api";
 import customToast from "@/toast";
 import { SingleProductType } from "@/types/type";
+import { useEffectAsync } from "@/utils/util";
 import { produce } from "immer";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 
 const FileInfo = ({
     data = {
@@ -17,45 +18,68 @@ const FileInfo = ({
 }: {
     data: SingleProductType,
 }) => {
-    const [localFile, setLocalFile] = useState<File | null>(null);
-    const { path, setShowUploadModal, counter, setCounter } = useContext(MediaContext);
-    const [fileInfo, setFileInfo] = useState<SingleProductType>(data || {
+    const { path, setShowInfoDropdown, showInfoDropdown } = useContext(MediaContext);
+
+    const defaultData = {
         productTitle: "",
         productLink: "",
         productDescription: "",
         productBrandName: "",
         productHighlights: "",
         productAttributes: "",
-    });
+    }
 
+    const [fileInfo, setFileInfo] = useState<SingleProductType>(data || defaultData);
 
+    useEffectAsync(async () => {
+        try {
+            const response = await api.get(`/products/product/${btoa(path)}`);
 
-    const fileInfoUpdateHandler = async (e: React.SyntheticEvent) => {
-        e.preventDefault();
-
-        if (!localFile) {
-            return customToast({
-                message: "Please select a file",
-                icon: "error",
-            });
+            if (response.data) {
+                setFileInfo(response.data.data);
+            }
+        } catch (error) {
+            // clear the data
+            setFileInfo(defaultData)
         }
+    }, [path])
 
-        // await fileUploadHandler();
 
+    const loadData = async () => {
         try {
             const response = await api.post("/products/product", {
                 productTitle: fileInfo.productTitle,
-                productLink: path + "/" + localFile?.name,
+                productLink: btoa(path),
                 productDescription: fileInfo.productDescription,
                 productBrandName: fileInfo.productBrandName,
                 productHighlights: fileInfo.productHighlights,
                 productAttributes: fileInfo.productAttributes,
             })
-            console.log(response.data);
+            return response.data;
+
         } catch (error) {
             console.log(error);
+            return null;
         }
+    }
 
+
+    const fileInfoUpdateHandler = async (e: React.SyntheticEvent) => {
+        e.preventDefault();
+
+        const result = await loadData();
+
+        if (result) {
+            customToast({
+                message: "Product Info Updated Successfully",
+                icon: "success"
+            })
+        } else {
+            customToast({
+                message: "Product Info Update Failed",
+                icon: "error"
+            })
+        }
     }
 
 
@@ -135,7 +159,7 @@ const FileInfo = ({
                 </button>
                 <button className="btn btn-error btn-sm join-item"
                     onClick={() => {
-                        setShowUploadModal(false);
+                        setShowInfoDropdown(!showInfoDropdown);
                     }}
                 >
                     Cancel

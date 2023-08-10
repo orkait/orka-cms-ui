@@ -3,7 +3,7 @@ import { fileAPI } from "@/service/api";
 import customToast from "@/toast";
 import { faArrowLeft, faFile, faFolder } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { env } from "process";
+import env from "@/env";
 import { useContext } from "react";
 import Swal from "sweetalert2";
 
